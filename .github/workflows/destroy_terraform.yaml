@@ -1,12 +1,12 @@
 name: Apply Terraform
-# on: [push]
-on:
-  workflow_dispatch:
+on: [push]
+# on:
+#   workflow_dispatch:
 
 
 jobs:
   terraform:
-    name: Apply Terraform
+    name: Destroy Terraform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,16 +22,11 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
      
-      - name: Terraform Initialize
-        run: |
-          cd env/dev
-          terraform init
-        working-directory: ./terraform
 
-      - name: Terraform Apply
+      - name: Terraform destroy
         working-directory: ./terraform
         run: |
           cd env/dev
-          terraform apply -auto-approve
+          terraform destroy -auto-approve
 
     
