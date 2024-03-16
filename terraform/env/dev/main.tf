@@ -17,7 +17,7 @@ terraform {
   }
 }
 
-# test
+
 # terraform {
 #   cloud {
 #     organization = "terraform-mehedi"
