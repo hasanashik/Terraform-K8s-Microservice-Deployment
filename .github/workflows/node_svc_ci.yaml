@@ -1,0 +1,33 @@
+name: build-docker-image
+on: [push, pull_request]
+# on:
+#   workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build-docker-image
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y make
+
+      - name: Build the Docker image
+        shell: bash
+        run: |
+          cd node-svc
+          make docker-build IMG=node-svc
+        env:
+          TAG: ${GITHUB_RUN_ID}
+        
+      - name: Push the Docker image
+        shell: bash
+        run: |
+          cd node-svc
+          make docker-login
+          make docker-push
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          TAG: ${GITHUB_RUN_ID}
