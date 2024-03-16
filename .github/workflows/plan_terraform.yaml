@@ -1,6 +1,7 @@
 name: Plan Terraform
-on: [push]
-
+# on: [push]
+on:
+  workflow_dispatch:
 jobs:
   terraform:
     name: Plan Terraform
