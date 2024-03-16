@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "poridhi-briefly-curiously-rightly-greatly-infinite-lion"
+    bucket         = "zaman-s3-bucket"
     key            = "terraform.tfstate"
     region         = "us-east-1"
 
