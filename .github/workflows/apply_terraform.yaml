@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        # with:
-        #   ref: ${{ env.BRANCH_NAME }}
 
       - name: Configure AWS Credentials Action For GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
@@ -23,8 +21,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        # with:
-        #   cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
      
       - name: Terraform Initialize
         run: |
