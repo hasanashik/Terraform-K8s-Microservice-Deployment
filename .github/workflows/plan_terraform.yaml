@@ -1,0 +1,42 @@
+name: Plan Terraform
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: Plan Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials Action For GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+     
+      - name: Terraform Initialize
+        run: |
+          cd env/dev
+          terraform init
+        working-directory: ./terraform
+
+      - name: Terraform Format
+        working-directory: ./terraform
+        run: |
+          cd env/dev
+          terraform fmt -recursive
+
+
+      - name: Terraform Plan
+        working-directory: ./terraform
+        run: |
+          cd env/dev
+          terraform plan
+
+    
